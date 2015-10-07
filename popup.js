@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 var addRow = function (id, request) {
-    document.getElementById('RequestTable').innerHTML += '<tr data-requestid="' + id + '"><td>' + request.status + '</td><td>' + request.method + '</td><td>' + request.url + '</td></tr>'
+    document.getElementById('RequestTable').innerHTML += '<tr data-requestid="' + id + '"><td>' + request.statusCode + '</td><td>' + request.method + '</td><td>' + request.url + '</td></tr>'
 }
 
 var displayRequest = function (request) {
