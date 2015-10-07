@@ -1,0 +1,37 @@
+#RequestTitle {
+    float: left;
+    font-size: 20px;
+}
+#Buttons {
+    float: right;
+    vertical-align: middle;
+}
+
+#Header {
+    vertical-align: middle;
+}
+
+table {
+    word-wrap: break-word;
+    overflow: hidden;
+    table-layout: fixed;
+}
+
+#Url {
+    max-width: 400px;
+    width: 400px;
+}
+
+#Status {
+    width: 150px;
+}
+    
+#Method {
+    width: 150px;
+}
+
+body {
+    width: 750px;
+    max-width: 750px;
+    min-height: 550px;
+}

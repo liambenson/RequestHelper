@@ -1,27 +1,39 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var requests = chrome.extension.getBackgroundPage().requests;
+    var background = chrome.extension.getBackgroundPage();
+    var requests = background.requests;
 
-    for (var property in requests) {
-        if (requests.hasOwnProperty(property)) {
-            document.getElementById('RequestList').innerHTML += '<li data-requestid="' + requests[property].requestId + '">' + requests[property].url + '</li>';
+
+    if (background.recording())
+        document.getElementById('Record').innerHTML = ' Stop Recording ';
+    else 
+        document.getElementById('Record').innerHTML = ' Start Recording ';
+
+    //Requests are indexed by their requestid
+    for (var requestid in requests) {
+        if (requests.hasOwnProperty(requestid)) {
+            addRow(requestid, requests[requestid]);
+            //document.getElementById('RequestList').innerHTML += '<li data-requestid="' + requestid + '">' + requests[requestid].url + '</li>';
         }
     }
 
-    for (var i = 0; i < document.getElementById('RequestList').children.length; i++) {
-        document.getElementById('RequestList').children[i].addEventListener('click', function(e) {  
-            var requestId = e.currentTarget.dataset.requestid;
-            displayRequest(requests[requestId]);
+    //Once all items have been added to the page, bind onclicks to the requests
+    for (var i = 1; i < document.getElementById('RequestTable').children.length; i++) {
+        document.getElementById('RequestTable').children[i].addEventListener('click', function(e) {  
+            var requestid = e.currentTarget.dataset.requestid;
+            displayRequest(requests[requestid]);
         });
     }
 
     document.getElementById('Clear').addEventListener('click', function (e) {
-        chrome.extension.getBackgroundPage().clearRequests();
-        document.getElementById('RequestList').innerHTML = '';
+        background.clearRequests();
+        var table = document.getElementById('RequestTable')
+
+        while (table.children[1]) {
+            table.removeChild(table.children[1]);
+        }
     });
 
     document.getElementById('Record').addEventListener('click', function (e) {
-        var background = chrome.extension.getBackgroundPage();
-
         background.toggleRecording();
         
         if (background.recording())
@@ -30,6 +42,10 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('Record').innerHTML = ' Start Recording ';
     });
 });
+
+var addRow = function (id, request) {
+    document.getElementById('RequestTable').innerHTML += '<tr data-requestid="' + id + '"><td>' + request.status + '</td><td>' + request.method + '</td><td>' + request.url + '</td></tr>'
+}
 
 var displayRequest = function (request) {
     console.log(prettyPrint(request))

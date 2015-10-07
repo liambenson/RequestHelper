@@ -1,13 +1,28 @@
 <doctype html>
 
 <html>
-    <script src='popup.js'></script>
-    <span>
-        <button id='Clear'> Clear </button>
-        <button id='Record'> Start Recording </button>
-    </span>
-    <br/>
-    <b> Requests: </b>
-    <ul id='RequestList'>
-    </ul>
+    <head>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+    <body>
+        <script src='popup.js'></script>
+        <div id='Header'>
+            <b id='RequestTitle'> Requests: </b>
+            <span id='Buttons'>
+                <button id='Clear'> Clear </button>
+                <button id='Record'> Start Recording </button>
+            <span/>
+        </div>
+        <br />
+        <br />
+        <table id='RequestTableRoot'>
+            <tbody id='RequestTable'>
+                <tr>
+                    <th id="Status"> Status </th>
+                    <th id="Method"> Method </th>
+                    <th id="Url"> URL </th>
+                </tr>
+            </tbody>
+        </table>
+    </body>
 </html>
